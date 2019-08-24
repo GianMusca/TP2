@@ -54,33 +54,111 @@ robotType* createRobots(uint RobotCount, uint width, uint height)	//Crea todos l
 	
 }
 
-void moveRobot(robotType* robots, uint RobotCount, uint width, uint height)		//DISCLAIMER: No esta terminada. Los "calculos" serian esos pero despues 
-																				//faltaria la parte del analisis (es decir, si al moverse toca bordes, etc). Despues lo hago :D
+void moveRobot(robotType* robots, uint RobotCount, uint width, uint height)		
 {
 	for (int i = 0; i < RobotCount; i++)
 	{
-		if (getRobotAngle(robot + i) < 90)
+		if (canItMove(robot + i))
 		{
-			(robots + i)->x += sin((robots + i)->angle);
-			(robots + i)->y += cos((robots + i)->angle);
+			if (getRobotAngle(robot + i) < 90)
+			{
+				(robots + i)->x += sin((robots + i)->angle);
+				(robots + i)->y += cos((robots + i)->angle);
+			}
+
+			else if (getRobotAngle(robots + i) > 90 && getRobotAngle(robots + i) < 180)
+			{
+				(robots + i)->x += cos((robots + i)->angle - 90.0);
+				(robots + i)->y -= sin((robots + i)->angle - 90.0);
+			}
+
+			else if (getRobotAngle(robots + i) > 180 && getRobotAngle(robots + i) < 270)
+			{
+				(robots + i)->x -= sin((robots + i)->angle - 180.0);
+				(robots + i)->y -= cos((robots + i)->angle - 180.0);
+			}
+
+			else if (getRobotAngle(robots + i) > 270 && getRobotAngle(robots + i) < 360)
+			{
+				(robots + i)->x -= cos((robots + i)->angle - 270.0);
+				(robots + i)->y += sin((robots + i)->angle - 270.0);
+			}
 		}
 
-		else if (getRobotAngle(robots + i) > 90 && getRobotAngle(robots + i) < 180)
+		else
 		{
-			(robots + i)->x += cos((robots + i)->angle - 90.0);
-			(robots + i)->y -= sin((robots + i)->angle - 90.0);
-		}
+			(robot + i)->angle = srand(time(NULL));
 
-		else if (getRobotAngle (robots + i) > 180 && getRobotAngle(robots + i) < 270)
-		{
-			(robots + i)->x -= sin((robots + i)->angle - 180.0);
-			(robots + i)->y -= cos((robots + i)->angle - 180.0);
-		}
-
-		else if (getRobotAngle(robots + i) > 270 && getRobotAngle(robots + i) < 360)
-		{
-			(robots + i)->x -= cos((robots + i)->angle - 270.0);
-			(robots + i)->y += sin((robots + i)->angle - 270.0);
 		}
 	}
+	return;
 }
+bool canItMove(robotType* robot)	//Esta funcion recibe un puntero a un robot y determina si se podra mover o no.
+									//Devuelve True de ser asi, y False en caso contrario
+{
+	bool ret;
+	double x_, y_;
+	x_ = robot->x;
+	y_ = robot->y;
+	if (getRobotAngle(robot + i) < 90)
+		{
+			if ((x_+= sin((robot)->angle)< width_) &&
+				(x_ += sin((robot)->angle) > 0)	&&
+				(y_ += cos((robot)->angle))< height_)	&&
+				(y_ += cos((robot)->angle)) > 0))
+			{
+				ret = TRUE;
+			}
+			else
+			{
+				ret = FALSE;
+			}
+		}
+
+	else if (getRobotAngle(robot) > 90 && getRobotAngle(robot) < 180)
+	{
+		if ((x_ += cos((robot)->angle - 90.0) < width_) &&
+			(x_ += cos((robot)->angle - 90.0) > 0) &&
+			(y_ -= sin((robot)->angle - 90.0)) < height_) &&
+			(y_ -= sin((robot)->angle - 90.0)) > 0))
+				{
+				ret = TRUE;
+				}
+		else
+		{
+			ret = FALSE;
+		}
+	}
+
+	else if (getRobotAngle (robot) > 180 && getRobotAngle(robot) < 270)
+	{
+		if ((x_ -= sin((robot)->angle - 180.0) < width_) &&
+			(x_ -= sin((robot)->angle - 180.0) > 0) &&
+			(y_ -= cos((robot)->angle - 180.0)) < height_) &&
+			(y_ -= cos((robot)->angle - 180.0)) > 0))
+		{
+			ret = TRUE;
+		}
+		else
+		{
+			ret = FALSE;
+		}
+	}
+	
+	else if (getRobotAngle(robot) > 270 && getRobotAngle(robot) < 360)
+	{
+		if ((x_ -= cos((robot)->angle - 270.0) < width_) &&
+			(x_ -= cos((robot)->angle - 270.0) > 0) &&
+			(y_ += sin((robot)->angle - 270.0)) < height_) &&
+			(y_ += sin((robot)->angle - 270.0)) > 0))
+|		{
+			ret = TRUE;
+		}
+		else
+		{
+			ret = FALSE;
+		}
+	}
+	return ret;
+}
+
