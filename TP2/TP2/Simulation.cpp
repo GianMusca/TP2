@@ -24,13 +24,12 @@ simulationType* createSim(simulationType* sim)
 
 simulationType* simulationStep(simulationType* sim)
 {
-	moveRobot(sim->robots, sim->robotCount, sim->width, sim->height);		// Mueve todos los robots con un llamado
-
 	for (uint i = 0; i < sim->robotCount; i++)
 	{
-		printf("\nRobots\n");
 		cleanTile(sim->floor, (uint)(((sim->robots) + i)->x), (uint)(((sim->robots) + i)->y), sim->width);		// Limpia todas las casillas en las que hayan robots.																					// para ello se llama multiples veces a la funcion cleanTile.
 	}
+
+	moveRobot(sim->robots, sim->robotCount, sim->width, sim->height);		// Mueve todos los robots con un llamado
 
 	(sim->tickCount)++;
 

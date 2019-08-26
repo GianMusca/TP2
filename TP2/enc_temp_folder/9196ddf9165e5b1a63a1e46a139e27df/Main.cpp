@@ -67,10 +67,12 @@ int main(int argc, char* argv[])
 					destroySim(sim);
 					//front-end
 				}
-
+				printf("\nRobots = %d\n", robotCount);
 				robotCount++;
 
 			} while ((histogram[robotCount - 1] - histogram[robotCount]) > 0.1);
+
+			printf("\nRobots = %d\n", robotCount);
 
 		}
 

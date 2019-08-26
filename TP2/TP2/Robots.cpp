@@ -42,8 +42,8 @@ robotType* createRobots(uint robotCount, uint width, uint height)	//Crea todos l
 	for (uint i = 0; i < robotCount; i++)
 	{
 		(robots + i)->angle = rand() % 360;
-		(robots + i)->y = (double)(rand() % (height-1))+1;		// asigna a la posicion valores entre 1 y height/width-1 
-		(robots + i)->x = (double)(rand() % (width-1))+1;
+		(robots + i)->y = (double)(rand() % height);		// asigna a la posicion valores entre 1 y height/width-1 
+		(robots + i)->x = (double)(rand() % width);
 	}
 
 	return robots;
@@ -123,7 +123,7 @@ bool canItMove(robotType* robot, uint width_, uint height_)	//Esta funcion recib
 
 	if (robot->angle == 0)
 	{
-		if (x_ += 1 >= width_)
+		if ((x_ +1) >= width_)
 		{
 			ret = TRUE;
 		}
@@ -134,10 +134,10 @@ bool canItMove(robotType* robot, uint width_, uint height_)	//Esta funcion recib
 	}
 	else if (getRobotAngle(robot) < 90)
 		{
-			if ((x_+= sin((robot)->angle)< width_) &&	
-				(x_ += sin((robot)->angle) > 0) &&
-				(y_ += cos((robot)->angle) < height_ ) &&
-				(y_ += cos((robot)->angle)) > 0)
+			if ((x_+ sin((robot)->angle)< width_) &&	
+				(x_ + sin((robot)->angle) > 0) &&
+				(y_ + cos((robot)->angle) < height_ ) &&
+				(y_ + cos((robot)->angle)) > 0)
 			{
 				ret = TRUE;
 			}
@@ -149,7 +149,7 @@ bool canItMove(robotType* robot, uint width_, uint height_)	//Esta funcion recib
 
 	else if (robot->angle == 90)
 	{
-		if (y_+=1 < height_) 
+		if ((y_+1) < height_) 
 		{
 			ret = TRUE;
 		}
@@ -161,10 +161,10 @@ bool canItMove(robotType* robot, uint width_, uint height_)	//Esta funcion recib
 
 	else if (getRobotAngle(robot) > 90 && getRobotAngle(robot) < 180)
 	{
-		if ((x_ += cos((robot)->angle - 90.0) < width_) &&
-			(x_ += cos((robot)->angle - 90.0) > 0) &&
-			(y_ -= sin((robot)->angle - 90.0) < height_) &&
-			(y_ -= sin((robot)->angle - 90.0) > 0))
+		if ((x_ + cos((robot)->angle - 90.0) < width_) &&
+			(x_ + cos((robot)->angle - 90.0) > 0) &&
+			(y_ - sin((robot)->angle - 90.0) < height_) &&
+			(y_ - sin((robot)->angle - 90.0) > 0))
 				{
 				ret = TRUE;
 				}
@@ -175,7 +175,7 @@ bool canItMove(robotType* robot, uint width_, uint height_)	//Esta funcion recib
 	}
 	else if (robot->angle == 180)
 	{
-		if (x_ -= 1 >= 0)
+		if ((x_-1) >= 0)
 		{
 			ret = TRUE;
 		}
@@ -188,10 +188,10 @@ bool canItMove(robotType* robot, uint width_, uint height_)	//Esta funcion recib
 
 	else if (getRobotAngle (robot) > 180 && getRobotAngle(robot) < 270)
 	{
-		if ((x_ -= sin((robot)->angle - 180.0) < width_) &&
-			(x_ -= sin((robot)->angle - 180.0) > 0) &&
-			(y_ -= cos((robot)->angle - 180.0) < height_) &&
-			(y_ -= cos((robot)->angle - 180.0) > 0))
+		if ((x_ - sin((robot)->angle - 180.0) < width_) &&
+			(x_ - sin((robot)->angle - 180.0) > 0) &&
+			(y_ - cos((robot)->angle - 180.0) < height_) &&
+			(y_ - cos((robot)->angle - 180.0) > 0))
 		{
 			ret = TRUE;
 		}
@@ -202,7 +202,7 @@ bool canItMove(robotType* robot, uint width_, uint height_)	//Esta funcion recib
 	}
 	else if (robot->angle == 270)
 	{
-		if (y_ -= 1 >= 0)
+		if ((y_ = 1) >= 0)
 		{
 			ret = TRUE;
 		}
@@ -213,10 +213,10 @@ bool canItMove(robotType* robot, uint width_, uint height_)	//Esta funcion recib
 	}
 	else if (getRobotAngle(robot) > 270 && getRobotAngle(robot) < 360)
 	{
-		if ((x_ -= cos((robot)->angle - 270.0) < width_) &&
-			(x_ -= cos((robot)->angle - 270.0) > 0) &&
-			(y_ += sin((robot)->angle - 270.0) < height_) &&
-			(y_ += sin((robot)->angle - 270.0) > 0))
+		if ((x_ - cos((robot)->angle - 270.0) < width_) &&
+			(x_ - cos((robot)->angle - 270.0) > 0) &&
+			(y_ + sin((robot)->angle - 270.0) < height_) &&
+			(y_ + sin((robot)->angle - 270.0) > 0))
 		{
 			ret = TRUE;
 		}
