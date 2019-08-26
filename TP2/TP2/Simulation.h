@@ -1,15 +1,18 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-typedef enum { MODE1, MODE2 } ModeType;
-typedef unsigned int uint;
+#include "Robots.h"
+#include "Piso.h"
+
+typedef enum { MODE1, MODE2 } modeType;
+
 typedef struct
 {
 	robotType* robots;
 	tileType* floor;
 	uint robotCount;
 	uint width;
-	uint heigth;
+	uint height;
 	uint tickCount;
 	modeType modo;
 
@@ -17,7 +20,7 @@ typedef struct
 
 simulationType* createSim(uint robotCount, uint width, uint height);
 void destroySim(simulationType* sim);
-bool simulationStep(simulationType* sim);
+simulationType* simulationStep(simulationType* sim);
 uint getSimTicks(simulationType* sim);
 bool isSimOver(simulationType* sim);
 

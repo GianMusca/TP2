@@ -1,8 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <synchapi.h>
 #include "parseCmdLine.h"
 #include "parseCallback.h"
 #include "Simulation.h"
+
+#define YES 1
+#define NO 0
+#define ERR -1
+#define TICK 0
+
+
+bool simDataIsValid(simulationType* data);
 
 
 int main(int argc, char* argv[])
@@ -13,9 +22,9 @@ int main(int argc, char* argv[])
 	if (simDataIsValid(&data))
 	{
 		//Modo 1
-		if (data.mode == MODE1)
+		if (data.modo == MODE1)
 		{
-			simulationType *sim = createSim(data.robots, data.width, data.height);
+			simulationType* sim = createSim(data.robotCount, data.width, data.height);
 			if (sim == NULL)
 			{
 				return ERR;
@@ -25,7 +34,7 @@ int main(int argc, char* argv[])
 			{
 				simulationStep(sim);
 				//front-end
-				_sleep(TICK);
+				Sleep(TICK);
 			}
 
 			destroySim(sim);
@@ -59,4 +68,17 @@ int main(int argc, char* argv[])
 		}
 
 	}
+}
+
+
+bool simDataIsValid(simulationType* data)
+{
+	bool ret = YES;
+
+	if (data == NULL)
+	{
+		ret = NO;
+	}
+
+	return ret;
 }

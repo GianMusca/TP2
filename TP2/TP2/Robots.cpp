@@ -1,18 +1,7 @@
 #include <math.h>
-#include<cstdlib>
-#include<ctime>
-
-typedef struct
-{
-	double angle;
-	double x;
-	double y;
-
-} robotType;			//Estructura Robots.
-
-robotType* createRobots(uint RobotCount, uint width, uint height); //NULL if error
-void moveRobot(robotType* Robots, uint RobotCount, uint width, uint height);
-void destroyRobots(robotType* robots);
+#include <stdlib.h>
+#include <time.h>
+#include "Robots.h"
 
 double getRobotAngle(robotType*);
 double getRobotX(robotType*);
@@ -42,25 +31,30 @@ void destroyRobots(robotType* robots)		//Destruye todos los robots.
 robotType* createRobots(uint RobotCount, uint width, uint height)	//Crea todos los robots, asignandole una posicion en el tablero y un angulo.
 {
 	robotType* robots;
+
+	srand(8);
+
 	robots = (robotType*) malloc (width * height * sizeof(robotType));
-	for (int i = 0; i < RobotCount; i++)
+	for (uint i = 0; i < RobotCount; i++)
 	{
-		*(robots + i)->angle = srand(time(NULL)) % 360;
-		*(robots + i)->y = (srand(time(NULL)) % (height-1))+1;		// asigna a la posicion valores entre 1 y height/width-1 
-		*(robots + i)->x = (srand(time(NULL)) % (width-1))+1;
+		(robots + i)->angle = rand() % 360;
+		(robots + i)->y = (rand() % (height-1))+1;		// asigna a la posicion valores entre 1 y height/width-1 
+		(robots + i)->x = (rand() % (width-1))+1;
 	}
 
 	return robots;
 	
 }
 
-void moveRobot(robotType* robots, uint RobotCount, uint width, uint height)		
+void moveRobot(robotType* robots, uint robotCount, uint width, uint height)		
 {
-	for (int i = 0; i < RobotCount; i++)
+	srand(8);
+
+	for (uint i = 0; i < robotCount; i++)
 	{
-		if (canItMove(robot + i))
+		if (canItMove(robots + i))
 		{
-			if (getRobotAngle(robot + i) < 90)
+			if (getRobotAngle(robots + i) < 90)
 			{
 				(robots + i)->x += sin((robots + i)->angle);
 				(robots + i)->y += cos((robots + i)->angle);
@@ -87,10 +81,11 @@ void moveRobot(robotType* robots, uint RobotCount, uint width, uint height)
 
 		else
 		{
-			(robot + i)->angle = srand(time(NULL));
+			(robots + i)->angle = rand();
 
 		}
 	}
+
 	return;
 }
 bool canItMove(robotType* robot)	//Esta funcion recibe un puntero a un robot y determina si se podra mover o no.

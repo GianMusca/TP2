@@ -131,7 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="parseCallback.h" />
+    <ClInclude Include="parseCmdLine.h" />
     <ClInclude Include="Piso.h" />
+    <ClInclude Include="Robots.h" />
     <ClInclude Include="Simulation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -6,10 +6,10 @@
 #define NO 0
 
 
-tileType * createFloor(uint width, uint height)
+tileType* createFloor(uint width, uint height)
 {
-	tileType * floor;
-	floor = (tileType*) malloc(width * height * sizeof(int));
+	tileType* floor;
+	floor = (tileType*) malloc(width * height * sizeof(tileType));
 	
 	if (floor == NULL)
 	{
