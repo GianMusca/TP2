@@ -45,7 +45,7 @@ bool isFloorClean(tileType* floor, uint width, uint height)
 
 void cleanTile(tileType* floor, uint x, uint y, uint width)
 {
-	floor[x * width + y] = LIMPIO;
+	*(floor + y * width + x) = LIMPIO;
 }
 
 

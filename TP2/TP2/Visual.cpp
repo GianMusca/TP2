@@ -67,11 +67,11 @@ int drawFloor(tileType* floor, robotType* robots, uint robotCount, uint width, u
 		for (unsigned int j = 0; j < width; j++)
 		{
 			//Chequeamos si tile es sucio/limpio
-			if (floor[i] == 0)
+			if (floor[i] == SUCIO)
 			{
 				drawme = tile_sucio;
 			}
-			else if (floor[i] == 1)
+			else if (floor[i] == LIMPIO)
 			{
 				drawme = tile_limpio;
 			}
@@ -89,12 +89,16 @@ int drawFloor(tileType* floor, robotType* robots, uint robotCount, uint width, u
 	{
 		al_draw_scaled_bitmap(robot,
 			0, 0, al_get_bitmap_width(robot), al_get_bitmap_height(robot),
-			robots[i].x * SCALE, robots[i].y * SCALE, al_get_display_width(display) / width, al_get_display_height(display) / height,
+			(robots[i].x * SCALE)-(al_get_bitmap_width(robot)/2), (robots[i].y * SCALE)-(al_get_bitmap_height(robot)/2), al_get_display_width(display) / width, al_get_display_height(display) / height,
 			0);
 	}
 
 	al_flip_display();
-	al_rest(5.0);//para poder ver la imagen
+	al_rest(3.0);//para poder ver la imagen
 
 	return (0);
 }
+
+
+
+

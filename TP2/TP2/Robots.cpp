@@ -3,6 +3,8 @@
 #include <time.h>
 #include "Robots.h"
 
+#define PI 3.14159265359
+#define RADS(x) ((((x)*PI)/180))
 #define TRUE 1
 #define FALSE 0
 
@@ -13,7 +15,7 @@ bool canItMove(robotType* robot, uint widht, uint height);
 
 double getRobotAngle(robotType* robot)		//Devuelve el angulo de un robot.
 {
-	return (robot->angle);
+	return RADS(robot->angle);
 }
 
 double getRobotX(robotType* robot)			//Devuelve la componente X de la posicion de un robot.
@@ -36,7 +38,7 @@ robotType* createRobots(uint robotCount, uint width, uint height)	//Crea todos l
 {
 	robotType* robots;
 
-	srand(time(NULL));
+	srand(/*time(NULL)*/8);
 
 	robots = (robotType*) malloc (width * height * sizeof(robotType));
 	for (uint i = 0; i < robotCount; i++)
@@ -57,7 +59,7 @@ void moveRobot(robotType* robots, uint robotCount, uint width, uint height)
 	for (uint i = 0; i < robotCount; i++)
 	{
 		if (canItMove((robots + i), width, height))
-		{
+		{/*
 			if (getRobotAngle(robots + i) == 0)
 			{
 				(robots + i)->x += 1;
@@ -102,11 +104,16 @@ void moveRobot(robotType* robots, uint robotCount, uint width, uint height)
 				(robots + i)->x -= cos((robots + i)->angle - 270.0);
 				(robots + i)->y += sin((robots + i)->angle - 270.0);
 			}
+			*/
+
+			(robots + i)->x += sin(getRobotAngle(robots + i));
+			(robots + i)->y += cos(getRobotAngle(robots + i));
+
 		}
 
 		else
 		{
-			(robots + i)->angle = rand();
+			(robots + i)->angle = rand() % 360;
 
 		}
 	}
