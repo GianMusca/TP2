@@ -6,6 +6,9 @@
 #include "Simulation.h"
 #include "Visual.h"
 
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>		//No olvides instalar allegro
+
 #define YES 1
 #define NO 0
 #define ERR -1
@@ -32,17 +35,17 @@ int main(int argc, char* argv[])
 				return ERR;
 			}
 
-			drawFloor(sim->floor, sim->robots, sim->robotCount, sim->width, sim->height);
+			ALLEGRO_DISPLAY* display = createDisplay(sim->floor, sim->robots, sim->robotCount, sim->width, sim->height);
 
 			while (!isSimOver(sim))
 			{
 				simulationStep(sim);
 				
-				drawFloor(sim->floor, sim->robots, sim->robotCount, sim->width, sim->height);  //front-end
+				drawFloor(sim->floor, sim->robots, sim->robotCount, sim->width, sim->height, display);  //front-end
 
 				Sleep(TICK);
 			}
-
+		//delete display
 			printf("\nPiso limpio\n");
 			destroySim(sim);
 		}
