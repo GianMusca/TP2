@@ -4,6 +4,7 @@
 #include "parseCmdLine.h"
 #include "parseCallback.h"
 #include "Simulation.h"
+#include "Visual.h"
 
 #define YES 1
 #define NO 0
@@ -33,7 +34,9 @@ int main(int argc, char* argv[])
 			while (!isSimOver(sim))
 			{
 				simulationStep(sim);
-				//front-end
+				
+				drawFloor(sim->floor, sim->robots, sim->robotCount, sim->width, sim->height);  //front-end
+
 				Sleep(TICK);
 			}
 

@@ -33,6 +33,9 @@
     <ClCompile Include="parseCmdLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Visual.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="parseCallback.h">
@@ -50,5 +53,11 @@
     <ClInclude Include="parseCmdLine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Visual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
