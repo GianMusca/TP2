@@ -2,7 +2,6 @@
 #include "Simulation.h"
 
 
-
 simulationType* createSim(simulationType* sim)
 {
 	sim->floor = createFloor(sim->width, sim->height);
@@ -29,8 +28,8 @@ simulationType* simulationStep(simulationType* sim)
 
 	for (uint i = 0; i < sim->robotCount; i++)
 	{
-		cleanTile(sim->floor, (uint)((sim->robots) + i)->x, (uint)((sim->robots) + i)->y, sim->width);		// Limpia todas las casillas en las que haytan robots.
-																							// para ello se llama multiples veces a la funcion cleanTile.
+		printf("\nRobots\n");
+		cleanTile(sim->floor, (uint)(((sim->robots) + i)->x), (uint)(((sim->robots) + i)->y), sim->width);		// Limpia todas las casillas en las que hayan robots.																					// para ello se llama multiples veces a la funcion cleanTile.
 	}
 
 	(sim->tickCount)++;

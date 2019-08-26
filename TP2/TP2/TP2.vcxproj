@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="parseCallback.cpp" />
+    <ClCompile Include="parseCmdLine.cpp" />
     <ClCompile Include="Piso.cpp" />
     <ClCompile Include="Robots.cpp" />
     <ClCompile Include="Simulation.cpp" />

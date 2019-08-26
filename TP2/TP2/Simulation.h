@@ -18,7 +18,7 @@ typedef struct
 
 } simulationType;
 
-simulationType* createSim(uint robotCount, uint width, uint height);
+simulationType* createSim(simulationType* sim);
 void destroySim(simulationType* sim);
 simulationType* simulationStep(simulationType* sim);
 uint getSimTicks(simulationType* sim);

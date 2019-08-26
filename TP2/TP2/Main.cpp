@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <synchapi.h>
+#include <windows.h>
 #include "parseCmdLine.h"
 #include "parseCallback.h"
 #include "Simulation.h"
@@ -8,7 +8,7 @@
 #define YES 1
 #define NO 0
 #define ERR -1
-#define TICK 0
+#define TICK 50
 
 
 bool simDataIsValid(simulationType* data);
@@ -17,40 +17,41 @@ bool simDataIsValid(simulationType* data);
 int main(int argc, char* argv[])
 {
 	simulationType data;
-	parseCmdLine(argc, argv, parseCallback, &data);
+	int syntaxOk = parseCmdLine(argc, argv, parseCallback, &data);
 
-	if (simDataIsValid(&data))
+	if (simDataIsValid(&data) && !(syntaxOk == ERR))
 	{
 		//Modo 1
 		if (data.modo == MODE1)
 		{
-			simulationType* sim = createSim(data.robotCount, data.width, data.height);
+			simulationType* sim = createSim(&data);
 			if (sim == NULL)
 			{
 				return ERR;
 			}
 
-			while (isSimOver(sim))
+			while (!isSimOver(sim))
 			{
 				simulationStep(sim);
 				//front-end
 				Sleep(TICK);
 			}
 
+			printf("\nPiso limpio\n");
 			destroySim(sim);
 		}
 
 		//Modo 2
 		else
 		{
-			double histogram[10000] = { 0.0 };
+			double histogram[100] = { 0.0 };
 			int robotCount = 1;
 
 			do
 			{
 				for (int simNum = 0; simNum < 1000; simNum++)
 				{
-					simulationType* sim = createSim(robotCount, data.width, data.height);
+					simulationType* sim = createSim(&data);
 					while (!isSimOver(simulationStep(sim)))
 					{
 						//sigue limpiando
@@ -60,10 +61,12 @@ int main(int argc, char* argv[])
 					destroySim(sim);
 					//front-end
 				}
-
+				printf("\nRobots = %d\n", robotCount);
 				robotCount++;
 
 			} while ((histogram[robotCount - 1] - histogram[robotCount]) > 0.1);
+
+			printf("\nRobots = %d\n", robotCount);
 
 		}
 

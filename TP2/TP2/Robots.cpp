@@ -6,10 +6,10 @@
 #define TRUE 1
 #define FALSE 0
 
-double getRobotAngle(robotType*);
-double getRobotX(robotType*);
-double getRobotY(robotType*);
-bool canItMove(robotType*, int, int);
+double getRobotAngle(robotType* robot);
+double getRobotX(robotType* robot);
+double getRobotY(robotType* robot);
+bool canItMove(robotType* robot, uint widht, uint height);
 
 double getRobotAngle(robotType* robot)		//Devuelve el angulo de un robot.
 {
@@ -32,18 +32,18 @@ void destroyRobots(robotType* robots)		//Destruye todos los robots.
 }
 
 
-robotType* createRobots(uint RobotCount, uint width, uint height)	//Crea todos los robots, asignandole una posicion en el tablero y un angulo.
+robotType* createRobots(uint robotCount, uint width, uint height)	//Crea todos los robots, asignandole una posicion en el tablero y un angulo.
 {
 	robotType* robots;
 
-	srand(8);
+	srand(time(NULL));
 
 	robots = (robotType*) malloc (width * height * sizeof(robotType));
-	for (uint i = 0; i < RobotCount; i++)
+	for (uint i = 0; i < robotCount; i++)
 	{
 		(robots + i)->angle = rand() % 360;
-		(robots + i)->y = (rand() % (height-1))+1;		// asigna a la posicion valores entre 1 y height/width-1 
-		(robots + i)->x = (rand() % (width-1))+1;
+		(robots + i)->y = (double)(rand() % (height-1))+1;		// asigna a la posicion valores entre 1 y height/width-1 
+		(robots + i)->x = (double)(rand() % (width-1))+1;
 	}
 
 	return robots;
@@ -52,7 +52,7 @@ robotType* createRobots(uint RobotCount, uint width, uint height)	//Crea todos l
 
 void moveRobot(robotType* robots, uint robotCount, uint width, uint height)		
 {
-	srand(8);
+	//srand(8);
 
 	for (uint i = 0; i < robotCount; i++)
 	{
@@ -113,10 +113,10 @@ void moveRobot(robotType* robots, uint robotCount, uint width, uint height)
 
 	return;
 }
-bool canItMove(robotType* robot, int width_, int height_)	//Esta funcion recibe un puntero a un robot y determina si se podra mover o no.
+bool canItMove(robotType* robot, uint width_, uint height_)	//Esta funcion recibe un puntero a un robot y determina si se podra mover o no.
 									//Devuelve True de ser asi, y False en caso contrario
 {
-	bool ret;
+	bool ret = FALSE;
 	double x_, y_;
 	x_ = robot->x;
 	y_ = robot->y;
@@ -225,6 +225,7 @@ bool canItMove(robotType* robot, int width_, int height_)	//Esta funcion recibe 
 			ret = FALSE;
 		}
 	}
+
 	return ret;
 }
 
